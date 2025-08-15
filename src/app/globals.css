@@ -1,14 +1,14 @@
+@import "tailwindcss";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* カスタムスタイル（任意） */
 body {
   font-family: Arial, sans-serif;
 }
 
 .prose pre {
-  background-color: #f5f5f5; /* コードブロックの背景 */
+  background-color: #f5f5f5;
   padding: 1rem;
   border-radius: 0.375rem;
   overflow-x: auto;

@@ -1,9 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ["./src/**/*.{js,ts,jsx,tsx,mdx,md}"],
+    content: [
+        "./app/**/*.{js,jsx,ts,tsx}",
+    ],
     theme: {
         extend: {},
     },
-    plugins: [require("@tailwindcss/typography")], // Markdownに対応するために必要
-};
-
+    plugins: [],
+}
