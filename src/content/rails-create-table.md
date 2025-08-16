@@ -30,15 +30,15 @@ rails g model Shop name:string genre:string area:string address:string url:strin
 
 ### 💡 このコマンドの意味
 
-| 部分 | 意味 |
-|------|------|
-| `rails g model` | モデル（データの型）を作る命令 |
-| `Shop` | 作りたいテーブルの名前（Shopという名前のテーブル） |
-| `name:string` | 「name」という文字列データを持つカラム（列）を作る |
-| `genre:string` | 「ジャンル」も文字列で登録 |
-| `area:string` | 「地域」も文字列で登録 |
-| `address:string` | 住所 |
-| `url:string` | お店のURL |
+| 部分             | 意味                                               |
+| ---------------- | -------------------------------------------------- |
+| `rails g model`  | モデル（データの型）を作る命令                     |
+| `Shop`           | 作りたいテーブルの名前（Shopという名前のテーブル） |
+| `name:string`    | 「name」という文字列データを持つカラム（列）を作る |
+| `genre:string`   | 「ジャンル」も文字列で登録                         |
+| `area:string`    | 「地域」も文字列で登録                             |
+| `address:string` | 住所                                               |
+| `url:string`     | お店のURL                                          |
 
 このコマンドを実行すると、**「マイグレーションファイル」**というものが作られます。
 
@@ -84,12 +84,12 @@ Shop.new
 
 ## 🔁 よくある操作とコマンドまとめ
 
-| 操作 | コマンド |
-|------|----------|
-| モデルを作る | `rails g model モデル名 カラム名:型 ...` |
-| マイグレーションを実行 | `rails db:migrate` |
-| データベースを初期化（全削除＆再作成） | `rails db:reset` |
-| seeds.rbを使って初期データを入れる | `rails db:seed` |
+| 操作                                   | コマンド                                 |
+| -------------------------------------- | ---------------------------------------- |
+| モデルを作る                           | `rails g model モデル名 カラム名:型 ...` |
+| マイグレーションを実行                 | `rails db:migrate`                       |
+| データベースを初期化（全削除＆再作成） | `rails db:reset`                         |
+| seeds.rbを使って初期データを入れる     | `rails db:seed`                          |
 
 ## 📘 まとめ
 
