@@ -4,36 +4,41 @@ export default function PostCard({
     slug,
     title,
     date,
-    excerpt,
     tags = [],
 }: {
     slug: string;
     title: string;
     date: string;
-    excerpt?: string;
     tags?: string[];
 }) {
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 p-6 border border-gray-200 dark:border-gray-700">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                <Link href={`/blog/${slug}`} className="hover:underline">
+        <Link href={`/blog/${slug}`} className="block group">
+            <article className="relative flex flex-col h-full justify-between p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md hover:border-purple-300 hover:-translate-y-1 transition-all duration-300 ease-in-out">
+                {/* アクセントバー */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 rounded-t-2xl" />
+
+                {/* タイトル */}
+                <h2 className="text-xl font-extrabold text-gray-800 mb-2 group-hover:text-purple-700 transition-colors">
                     {title}
-                </Link>
-            </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{date}</p>
-            {excerpt && <p className="text-gray-700 dark:text-gray-300 mb-4">{excerpt}</p>}
-            {tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 mt-2">
-                    {tags.map((tag) => (
-                        <span
-                            key={tag}
-                            className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium px-3 py-1 rounded-full"
-                        >
-                            #{tag}
-                        </span>
-                    ))}
-                </div>
-            )}
-        </div>
+                </h2>
+
+                {/* 日付 */}
+                <p className="text-sm text-gray-500 mb-4">{date}</p>
+
+                {/* タグ */}
+                {tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mt-auto">
+                        {tags.map((tag) => (
+                            <span
+                                key={tag}
+                                className="bg-purple-100 text-purple-800 text-xs font-semibold px-3 py-1 rounded-full hover:bg-purple-200 transition"
+                            >
+                                #{tag}
+                            </span>
+                        ))}
+                    </div>
+                )}
+            </article>
+        </Link>
     );
 }
