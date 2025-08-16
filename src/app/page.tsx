@@ -6,30 +6,41 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ✅ Tailwind 有効チェック用 */}
-      <div className="bg-red-500 text-white text-3xl font-bold p-6 rounded-xl shadow-xl text-center mb-8">
-        ✅ Tailwind は有効です！（赤背景）
-      </div>
+      {/* Hero Section */}
+      <section className="w-full bg-gradient-to-br from-pink-200 via-purple-200 to-blue-200 text-gray-900 py-24 text-center shadow-md">
+        <h1 className="text-6xl font-extrabold leading-[1.2] tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 drop-shadow-lg">
+          Hamayan.dev
+        </h1>
 
-      <section className="w-full h-96 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 text-black text-center shadow-xl flex flex-col justify-center items-center border-4 border-black">
-        <h1 className="text-5xl font-extrabold tracking-tight">🌈 背景グラデーションテスト</h1>
-        <p className="mt-4 text-lg">これは絶対に色が見えるはず！</p>
+        <p className="text-xl text-gray-800">
+          技術・学び・発見を記録する、Hamayanの開発ノート。
+        </p>
       </section>
 
 
       {/* Blog List */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <h2 className="text-3xl font-bold text-gray-800 mb-10 text-center">
+          技術ブログ一覧
+        </h2>
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
             <PostCard
               key={post.slug}
               slug={post.slug}
               title={post.meta.title}
               date={post.meta.date}
+              tags={post.meta.tags}
             />
           ))}
         </div>
       </main>
+
+      <footer className="bg-white border-t border-gray-200 text-center py-6">
+        <p className="text-sm text-gray-500">
+          © {new Date().getFullYear()} Hamayan.dev — All rights reserved.
+        </p>
+      </footer>
     </>
   );
 }
