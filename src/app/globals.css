@@ -8,16 +8,107 @@ body {
 }
 
 /* Markdown用（記事ページ限定） */
-.markdown-body.prose pre {
-  background-color: #f5f5f5;
-  padding: 1rem;
-  border-radius: 0.375rem;
-  overflow-x: auto;
+.markdown-body.prose {
+  font-size: 1.125rem;
+  line-height: 1.9;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
+.markdown-body.prose p {
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.markdown-body.prose li {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.8;
+}
+
+.markdown-body.prose ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.markdown-body.prose ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+}
+
+.markdown-body.prose :not(pre)>code {
+  background-color: #f5f5f5;
+  color: #b91c1c;
+  /* 赤強調 */
+  padding: 0.25rem 0.45rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  font-size: 0.95em;
+  font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  box-shadow: inset 0 0 0 1px #e5e7eb;
+}
+
+/* コードブロック（pre code）のみ：ダークテーマ */
+.markdown-body.prose pre {
+  background-color: #1e1e1e;
+  color: #f8f8f2;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  font-family: 'Fira Code', 'Source Code Pro', monospace;
+}
+
+.markdown-body.prose pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+
+
+/* 明確なアクセント：記号・キーワード・変数名（疑似的に指定可能） */
+.markdown-body.prose pre code .token.punctuation {
+  color: #ff6b6b;
+  /* 記号など（= { } , ; など） */
+}
+
+.markdown-body.prose pre code .token.keyword {
+  color: #ff79c6;
+  /* キーワード（const, if など） */
+}
+
+.markdown-body.prose pre code .token.function {
+  color: #61afef;
+  /* 関数名など */
+}
+
+.markdown-body.prose pre code .token.variable {
+  color: #8be9fd;
+  /* 変数名など */
+}
+
+
+/* 引用 */
+.markdown-body.prose blockquote {
+  border-left: 4px solid #c084fc;
+  background-color: #f9f5ff;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0.375rem;
+  color: #4b5563;
+  font-style: italic;
+}
+
+/* 表 */
 .markdown-body.prose table {
   width: 100%;
   border-collapse: collapse;
+  margin: 2rem 0;
 }
 
 .markdown-body.prose th,
@@ -31,31 +122,56 @@ body {
   font-weight: bold;
 }
 
-/* 見出しのカスタマイズ（記事用だけ） */
+/* 見出しのカスタマイズ */
 .markdown-body.prose h1 {
   font-size: 2.25rem;
   font-weight: 800;
   color: #1f2937;
-  /* gray-800 */
+  margin-top: 2rem;
+  margin-bottom: 1.2rem;
 }
 
 .markdown-body.prose h2 {
+  position: relative;
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid #c084fc;
   font-size: 1.75rem;
   font-weight: 700;
-  color: #374151;
-  /* gray-700 */
+  color: #4b5563;
+  margin-top: 2rem;
+  margin-bottom: 1.2rem;
 }
 
 .markdown-body.prose h3 {
   font-size: 1.5rem;
   font-weight: 600;
   color: #4b5563;
-  /* gray-600 */
+  margin-top: 1.8rem;
+  margin-bottom: 1rem;
 }
 
 .markdown-body.prose h4 {
   font-size: 1.25rem;
   font-weight: 500;
   color: #6b7280;
-  /* gray-500 */
+}
+
+/* 画像 */
+.markdown-body.prose img {
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  margin: 2rem 0;
+}
+
+/* リンク */
+.markdown-body.prose a {
+  color: #7c3aed;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: all 0.2s ease-in-out;
+}
+
+.markdown-body.prose a:hover {
+  color: #6d28d9;
+  text-decoration-color: #6d28d9;
 }
