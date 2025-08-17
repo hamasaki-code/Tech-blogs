@@ -32,18 +32,15 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
   return (
     <main className="max-w-4xl mx-auto px-6 py-12 text-gray-800 dark:text-gray-100">
-      {/* Hero Section */}
       <section className="relative mb-12 overflow-hidden rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg p-10 text-white text-center">
         <h1 className="text-5xl font-extrabold tracking-tight">{data.title}</h1>
         <p className="text-md mt-4 opacity-90">{data.date}</p>
       </section>
 
-      {/* Markdown content */}
       <article className="markdown-body prose lg:prose-xl max-w-none">
         <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
       </article>
 
-      {/* Tags */}
       {data.tags && (
         <div className="mt-8 flex flex-wrap gap-2">
           {data.tags.map((tag: string) => (
@@ -57,12 +54,12 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         </div>
       )}
 
-      {/* Footer */}
       <footer className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700 text-center">
         <p className="text-sm text-gray-500 dark:text-gray-400">
           © {new Date().getFullYear()} Hamayan.dev — All rights reserved.
         </p>
       </footer>
     </main>
+
   );
 }
