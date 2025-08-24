@@ -4,6 +4,7 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 import remarkGfm from "remark-gfm";
+import Layout from "@/components/Layout";
 
 export async function generateStaticParams() {
   const files = fs.readdirSync("src/content");
@@ -31,35 +32,62 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   const contentHtml = processedContent.toString();
 
   return (
-    <main className="max-w-4xl mx-auto px-6 py-12 text-gray-800 dark:text-gray-100">
-      <section className="relative mb-12 overflow-hidden rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg p-10 text-white text-center">
-        <h1 className="text-5xl font-extrabold tracking-tight">{data.title}</h1>
-        <p className="text-md mt-4 opacity-90">{data.date}</p>
-      </section>
+    <Layout>
+      <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 p-10 my-12 rounded-xl shadow-lg">
+        {/* タイトル */}
+        <section className="w-full bg-gradient-to-r from-pink-200 via-purple-200 to-blue-200
+                      text-gray-900 py-14 text-center shadow-sm mb-6 rounded-lg">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-2
+                  text-transparent bg-clip-text bg-gradient-to-r
+                  from-pink-600 via-purple-600 to-blue-600">
+            {data.title}
+          </h1>
+        </section>
 
-      <article className="markdown-body prose lg:prose-xl max-w-none">
-        <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
-      </article>
+        {data.tags && (
+          <div className="flex flex-wrap justify-center gap-2 mb-6">
+            {data.tags.map((tag: string) => (
+              <span
+                key={tag}
+                className="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800
+                    dark:bg-blue-900 dark:text-blue-200"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
 
-      {data.tags && (
-        <div className="mt-8 flex flex-wrap gap-2">
-          {data.tags.map((tag: string) => (
-            <span
-              key={tag}
-              className="inline-block bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full dark:bg-blue-900 dark:text-blue-200"
-            >
-              #{tag}
-            </span>
-          ))}
-        </div>
-      )}
+        {/* 日付 */}
+        <p className="text-center text-sm text-gray-500 mb-8">{data.date}</p>
 
-      <footer className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700 text-center">
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          © {new Date().getFullYear()} Hamayan.dev — All rights reserved.
-        </p>
-      </footer>
-    </main>
+        {/* 本文 */}
+        <article className="markdown-body prose prose-lg lg:prose-xl max-w-none
+                      prose-headings:text-gray-800 prose-a:text-blue-600
+                      dark:prose-invert dark:prose-headings:text-gray-100">
+          <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
+        </article>
 
+
+        {/* サイドバー（目次） */}
+        <aside
+          className="hidden lg:block fixed top-40 w-64"
+          style={{
+            right: "calc((100vw - 1024px) / 2 / 2)",
+          }}
+        >
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm
+                      border border-gray-200 dark:border-gray-700
+                      p-4 rounded-lg shadow-sm text-sm">
+            <h2 className="font-bold mb-2 text-gray-700 dark:text-gray-200">目次</h2>
+            <ul className="space-y-2 text-gray-600 dark:text-gray-400">
+              <li><a href="#見出し1" className="hover:text-blue-600">見出し1</a></li>
+              <li><a href="#見出し2" className="hover:text-blue-600">見出し2</a></li>
+              <li><a href="#見出し3" className="hover:text-blue-600">見出し3</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </Layout >
   );
 }
