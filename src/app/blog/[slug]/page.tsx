@@ -6,7 +6,7 @@ import html from "remark-html";
 import remarkGfm from "remark-gfm";
 import { remarkExtractToc } from "@/lib/remark-toc";
 import Layout from "@/components/Layout";
-import Toc from "@/components/Toc"; // 👈 スクロールスパイ対応のTOC
+import Toc from "@/components/Toc";
 
 export async function generateStaticParams() {
   const files = fs.readdirSync("src/content");
@@ -26,7 +26,6 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   const fileContents = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(fileContents);
 
-  // 👇 TOC をここで収集
   const toc: { depth: number; text: string; id: string }[] = [];
   const processedContent = await remark()
     .use(remarkGfm)
@@ -65,7 +64,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
         {/* 本文 */}
         <article
-          className="markdown-body prose prose-lg lg:prose-xl max-w-none prose-headings:text-gray-800 prose-a:text-blue-600 dark:prose-invert dark:prose-headings:text-gray-100"
+          className="markdown-body prose prose-lg lg:prose-xl max-w-none prose-headings:text-gray-900 prose-a:text-blue-600 dark:prose-invert dark:prose-headings:text-gray-50"
           dangerouslySetInnerHTML={{ __html: contentHtml }}
         />
 
@@ -77,7 +76,8 @@ export default async function BlogPost({ params }: { params: { slug: string } })
               right: "calc((100vw - 1024px) / 2 / 2)",
             }}
           >
-            <Toc toc={toc} />
+            {/* 👇 props 名を `items` に修正 */}
+            <Toc items={toc} />
           </aside>
         )}
       </div>
