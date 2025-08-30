@@ -13,18 +13,29 @@ export default function PostCard({
 }) {
     return (
         <Link href={`/blog/${slug}`} className="block group">
-            <article className="relative flex flex-col h-full justify-between p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md hover:border-purple-300 hover:-translate-y-1 transition-all duration-300 ease-in-out">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 rounded-t-2xl" />
-                <h2 className="text-xl font-extrabold text-gray-800 mb-2 group-hover:text-purple-700 transition-colors">
+            <article className="relative flex flex-col h-full justify-between
+                p-6 rounded-2xl border border-gray-100
+                bg-white shadow-md hover:shadow-lg hover:border-purple-300
+                hover:-translate-y-1 transition-all duration-300 ease-in-out">
+
+                {/* カード上部のアクセントバー（薄めに残す） */}
+                <div className="absolute top-0 left-0 w-full h-1
+                    bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600
+                    rounded-t-2xl" />
+
+                <h2 className="text-xl font-extrabold text-gray-800 mb-2
+                    group-hover:text-purple-700 transition-colors">
                     {title}
                 </h2>
                 <p className="text-sm text-gray-500 mb-4">{date}</p>
+
                 {tags.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-auto">
                         {tags.map((tag) => (
                             <span
                                 key={tag}
-                                className="bg-purple-100 text-purple-800 text-xs font-semibold px-3 py-1 rounded-full hover:bg-purple-200 transition"
+                                className="bg-purple-100 text-purple-800 text-xs font-semibold 
+                        px-3 py-1 rounded-full hover:bg-purple-200 transition"
                             >
                                 #{tag}
                             </span>
