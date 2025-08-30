@@ -2,7 +2,7 @@
 import { visit } from "unist-util-visit";
 
 export function remarkExtractToc(toc: any[]) {
-    const slugCount: Record<string, number> = {}; // 👈 同じ見出し用カウンタ
+    const slugCount: Record<string, number> = {};
 
     return () => (tree: any) => {
         visit(tree, "heading", (node: any) => {
@@ -17,7 +17,6 @@ export function remarkExtractToc(toc: any[]) {
                     .replace(/\s+/g, "-")
                     .replace(/[^\w-]/g, "");
 
-                // 重複を避けるためインデックスを追加
                 if (slugCount[slug]) {
                     slugCount[slug] += 1;
                     slug = `${slug}-${slugCount[slug]}`;
