@@ -76,7 +76,6 @@ export default async function BlogPost({ params }: { params: { slug: string } })
               right: "calc((100vw - 1024px) / 2 / 2)",
             }}
           >
-            {/* 👇 props 名を `items` に修正 */}
             <Toc items={toc} />
           </aside>
         )}
