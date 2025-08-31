@@ -15,6 +15,23 @@ export async function generateStaticParams() {
   }));
 }
 
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const slug = decodeURIComponent(params.slug);
+  const filePath = path.join("src/content", `${slug}.md`);
+
+  if (!fs.existsSync(filePath)) {
+    return { title: "記事が見つかりません | Hamayan.dev" };
+  }
+
+  const fileContents = fs.readFileSync(filePath, "utf8");
+  const { data } = matter(fileContents);
+
+  return {
+    title: `${data.title} | Hamayan.dev`,
+    description: data.excerpt || "Hamayan.dev の記事詳細ページ",
+  };
+}
+
 export default async function BlogPost({ params }: { params: { slug: string } }) {
   const slug = decodeURIComponent(params.slug);
   const filePath = path.join("src/content", `${slug}.md`);
