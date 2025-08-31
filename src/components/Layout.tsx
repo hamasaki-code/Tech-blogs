@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import SearchInput from "./SearchInput";
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleLeft } from "@fortawesome/free-solid-svg-icons";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-    const [query, setQuery] = useState("");
+type LayoutProps = {
+    children: React.ReactNode;
+};
+
+export default function Layout({ children }: LayoutProps) {
     const [showHeader, setShowHeader] = useState(true);
     const lastScrollY = useRef(0);
 
@@ -42,17 +44,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                             bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500
                             text-white shadow hover:opacity-90 transition"
                             title="Back to Home"
+                            aria-label="Back to Home"
                         >
                             <FontAwesomeIcon icon={faCircleLeft} className="w-5 h-5" />
                         </Link>
                     </div>
 
                     {/* 中央：ロゴ */}
-                    <div className="absolute left-1/2 transform -translate-x-1/2">
+                    <div className="absolute left-1/2 -translate-x-1/2">
                         <Link
                             href="/"
                             className="text-xl font-bold text-transparent bg-clip-text
                             bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600"
+                            aria-label="Hamayan.dev home"
                         >
                             Hamayan.dev
                         </Link>

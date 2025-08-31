@@ -8,25 +8,34 @@ export default function PostCard({
 }: {
     slug: string;
     title: string;
-    date: string;
+    date?: string;
     tags?: string[];
 }) {
     return (
         <Link href={`/blog/${slug}`} className="block group h-full">
-            <article className="relative flex flex-col h-full justify-between
+            <article
+                className="relative flex flex-col h-full justify-between
                 p-4 sm:p-6 rounded-2xl border border-gray-100
                 bg-white shadow-md hover:shadow-xl hover:border-purple-300
-                transition-all duration-300 ease-in-out">
-
-                <div className="absolute top-0 left-0 w-full h-1
+                transition-all duration-300 ease-in-out"
+            >
+                <div
+                    className="absolute top-0 left-0 w-full h-1
                     bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600
-                    rounded-t-2xl" />
+                    rounded-t-2xl"
+                />
 
-                <h2 className="text-lg sm:text-xl font-extrabold text-gray-800 mb-2
-                    group-hover:text-purple-700 transition-colors line-clamp-2">
+                <h2
+                    className="text-lg sm:text-xl font-extrabold text-gray-800 mb-2
+                    group-hover:text-purple-700 transition-colors line-clamp-2"
+                >
                     {title}
                 </h2>
-                <p className="text-xs sm:text-sm text-gray-500 mb-4">{date}</p>
+
+                {/* date があるときだけ表示 */}
+                {date && (
+                    <p className="text-xs sm:text-sm text-gray-500 mb-4">{date}</p>
+                )}
 
                 {tags.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-auto">
