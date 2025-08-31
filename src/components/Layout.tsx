@@ -33,7 +33,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 className={`w-full bg-white dark:bg-gray-800 shadow-md fixed top-0 left-0 z-50 transition-transform duration-300 ${showHeader ? "translate-y-0" : "-translate-y-full"
                     }`}
             >
-                {/* 高さを確保 */}
                 <div className="relative max-w-6xl mx-auto flex items-center h-16">
                     {/* 左：戻るボタン */}
                     <div className="flex-shrink-0 ml-6">
@@ -57,11 +56,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         >
                             Hamayan.dev
                         </Link>
-                    </div>
-
-                    {/* 右：検索フォーム */}
-                    <div className="hidden md:block w-64 ml-auto mr-6">
-                        <SearchInput onSearch={(q) => setQuery(q)} />
                     </div>
                 </div>
             </nav>
