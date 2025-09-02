@@ -16,13 +16,17 @@ body {
   margin-right: auto;
   padding-left: 1rem;
   padding-right: 1rem;
+
+  @apply text-gray-800 dark:text-gray-200;
 }
 
+/* 段落 */
 .markdown-body.prose p {
   margin-top: 1.2rem;
   margin-bottom: 1.2rem;
 }
 
+/* リスト */
 .markdown-body.prose li {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -39,21 +43,16 @@ body {
   padding-left: 1.5rem;
 }
 
+/* インラインコード */
 .markdown-body.prose :not(pre)>code {
-  background-color: #f5f5f5;
-  color: #b91c1c;
-  padding: 0.25rem 0.45rem;
-  border-radius: 0.375rem;
-  font-weight: 600;
-  font-size: 0.95em;
-  font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  box-shadow: inset 0 0 0 1px #e5e7eb;
+  @apply px-2 py-1 rounded-md font-semibold font-sans shadow-inner;
+  @apply text-base;
+  @apply bg-gray-100 text-red-700 dark:bg-gray-700 dark:text-red-300;
 }
 
 /* コードブロック */
 .markdown-body.prose pre {
-  background-color: #1e1e1e;
-  color: #f8f8f2;
+  @apply bg-gray-900 dark:bg-black text-gray-100;
   padding: 1rem;
   border-radius: 0.5rem;
   overflow-x: auto;
@@ -62,97 +61,48 @@ body {
   font-family: 'Fira Code', 'Source Code Pro', monospace;
 }
 
-.markdown-body.prose pre code {
-  background: transparent;
-  color: inherit;
-  padding: 0;
-  font-size: inherit;
-}
-
-/* シンタックスハイライト */
-.markdown-body.prose pre code .token.punctuation {
-  color: #ff6b6b;
-}
-
-.markdown-body.prose pre code .token.keyword {
-  color: #ff79c6;
-}
-
-.markdown-body.prose pre code .token.function {
-  color: #61afef;
-}
-
-.markdown-body.prose pre code .token.variable {
-  color: #8be9fd;
-}
-
 /* 引用 */
 .markdown-body.prose blockquote {
-  border-left: 4px solid #c084fc;
-  background-color: #f9f5ff;
+  @apply border-l-4 border-purple-400 dark:border-purple-600 bg-purple-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300;
   padding: 1rem 1.25rem;
   margin: 1.5rem 0;
   border-radius: 0.375rem;
-  color: #4b5563;
   font-style: italic;
 }
 
 /* 表 */
 .markdown-body.prose table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 2rem 0;
+  @apply w-full border-collapse my-8 text-sm;
 }
 
 .markdown-body.prose th,
 .markdown-body.prose td {
-  border: 1px solid #ddd;
-  padding: 0.5rem;
+  @apply border border-gray-300 dark:border-gray-600 px-3 py-2;
 }
 
 .markdown-body.prose th {
-  background-color: #f9fafb;
-  font-weight: bold;
+  @apply bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-semibold;
+}
+
+.markdown-body.prose tr:nth-child(even) {
+  @apply bg-gray-50 dark:bg-gray-800;
 }
 
 /* 見出し */
 .markdown-body.prose h1 {
-  font-size: 2.25rem;
-  font-weight: 800;
-  color: #111827;
-  /* 黒に近く濃い */
-  letter-spacing: -0.02em;
-  margin-top: 2rem;
-  margin-bottom: 1.2rem;
+  @apply text-4xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100 mt-8 mb-5;
 }
 
 .markdown-body.prose h2 {
-  position: relative;
-  padding-bottom: 0.3em;
-  border-bottom: 2px solid #c084fc;
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #1f2937;
-  /* 濃いグレー */
-  letter-spacing: -0.015em;
-  margin-top: 2rem;
-  margin-bottom: 1.2rem;
+  @apply text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 mt-8 mb-5 relative pb-3 border-b-2 border-purple-400 dark:border-purple-600;
 }
 
 .markdown-body.prose h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #374151;
-  /* 現行より濃いめ */
-  margin-top: 1.8rem;
-  margin-bottom: 1rem;
+  @apply text-xl font-semibold text-gray-900 dark:text-gray-100 mt-7 mb-4;
 }
 
 .markdown-body.prose h4 {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: #374151;
-  /* グレーを濃く修正 */
+  @apply text-lg font-medium text-gray-900 dark:text-gray-100 mt-6 mb-3;
 }
 
 /* 画像 */
@@ -164,7 +114,7 @@ body {
 
 /* リンク */
 .markdown-body.prose a {
-  color: #7c3aed;
+  @apply text-purple-600 dark:text-purple-400;
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: all 0.2s ease-in-out;
@@ -179,7 +129,6 @@ body {
 @media (max-width: 640px) {
   .markdown-body.prose {
     font-size: 0.95rem;
-    /* 15pxくらい */
     line-height: 1.6;
   }
 
@@ -187,12 +136,10 @@ body {
     font-size: 1.5rem;
   }
 
-  /* ~24px */
   .markdown-body.prose h2 {
     font-size: 1.25rem;
   }
 
-  /* ~20px */
   .markdown-body.prose h3 {
     font-size: 1.1rem;
   }
