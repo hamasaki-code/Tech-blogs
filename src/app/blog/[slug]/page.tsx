@@ -62,10 +62,18 @@ export default async function BlogPost(
   return (
     <Layout>
       <div className="w-full bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 dark:from-gray-900 dark:via-gray-950 dark:to-black py-8 sm:py-12">
-        <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 p-4 sm:p-6 md:p-10 my-6 sm:my-12 rounded-xl shadow-xl relative">
+
+        {/* 本文ラッパー */}
+        <div
+          className="max-w-3xl xl:max-w-4xl
+          mx-auto lg:mx-0 lg:ml-[calc((100vw-1024px)/2)]
+          bg-white dark:bg-gray-800
+          p-4 sm:p-6 md:p-10 my-6 sm:my-12
+          rounded-xl shadow-xl relative"
+        >
           {/* タイトル */}
-          <section className="w-full bg-gradient-to-r from-pink-200 via-purple-200 to-blue-200 dark:from-gray-700 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-gray-100 py-8 sm:py-12 text-center shadow-sm mb-6 rounded-lg" >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-2 text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 dark:from-pink-400 dark:via-purple-400 dark:to-blue-400" >
+          <section className="w-full bg-gradient-to-r from-pink-200 via-purple-200 to-blue-200 dark:from-gray-700 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-gray-100 py-8 sm:py-12 text-center shadow-sm mb-6 rounded-lg">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-2 text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 dark:from-pink-400 dark:via-purple-400 dark:to-blue-400">
               {data.title}
             </h1>
           </section>
@@ -112,17 +120,17 @@ export default async function BlogPost(
               prose-li:text-gray-800 dark:prose-li:text-gray-200"
             dangerouslySetInnerHTML={{ __html: contentHtml }}
           />
-
-          {/* PC用目次 */}
-          {toc.length > 0 && (
-            <aside
-              className="hidden lg:block fixed top-40 w-64"
-              style={{ right: "calc((100vw - 1024px) / 2 / 2)" }}
-            >
-              <Toc items={toc} />
-            </aside>
-          )}
         </div>
+
+        {/* PC用目次 */}
+        {toc.length > 0 && (
+          <aside
+            className="hidden lg:block fixed top-40 w-64"
+            style={{ right: "calc((100vw - 1024px) / 2 / 2)" }}
+          >
+            <Toc items={toc} />
+          </aside>
+        )}
       </div>
     </Layout>
   );

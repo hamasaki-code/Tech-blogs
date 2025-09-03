@@ -9,8 +9,9 @@ body {
 
 /* Markdown用（記事ページ限定） */
 .markdown-body.prose {
-  font-size: 1.125rem;
-  line-height: 1.9;
+  font-size: 1rem;
+  /* デフォルトは16pxに */
+  line-height: 1.7;
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -90,11 +91,11 @@ body {
 
 /* 見出し */
 .markdown-body.prose h1 {
-  @apply text-4xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100 mt-8 mb-5;
+  @apply text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100 mt-8 mb-5;
 }
 
 .markdown-body.prose h2 {
-  @apply text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 mt-8 mb-5 relative pb-3 border-b-2 border-purple-400 dark:border-purple-600;
+  @apply text-2xl md:text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 mt-8 mb-5 relative pb-3 border-b-2 border-purple-400 dark:border-purple-600;
 }
 
 .markdown-body.prose h3 {
@@ -128,7 +129,7 @@ body {
 /* スマホ */
 @media (max-width: 640px) {
   .markdown-body.prose {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     line-height: 1.6;
   }
 
@@ -146,19 +147,27 @@ body {
 }
 
 /* タブレット */
-@media (min-width: 641px) and (max-width: 1024px) {
+@media (min-width: 641px) and (max-width: 1023px) {
   .markdown-body.prose {
     font-size: 1rem;
-    /* 16px */
     line-height: 1.7;
   }
 }
 
-/* PC */
-@media (min-width: 1025px) {
+/* ノートPC (1024px〜1279px) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .markdown-body.prose {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* デスクトップ */
+@media (min-width: 1280px) {
   .markdown-body.prose {
     font-size: 1.125rem;
-    /* 18px */
     line-height: 1.9;
   }
 }
