@@ -38,7 +38,8 @@ export default function SearchablePosts({ posts }: Props) {
         <main
             className="max-w-3xl sm:max-w-5xl lg:max-w-7xl mx-auto
             px-4 sm:px-6 lg:px-8 pt-10 md:pt-12 pb-16 md:pb-20
-            min-h-[60vh] flex flex-col"
+            min-h-[60vh] flex flex-col
+            text-gray-900 dark:text-gray-100"
         >
             {/* 🔍 検索フォーム */}
             <div className="mb-8 sm:mb-10">
@@ -47,10 +48,10 @@ export default function SearchablePosts({ posts }: Props) {
 
             {/* セクションヘッダー */}
             <div className="text-center mb-10 sm:mb-12">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100 tracking-tight">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">
                     技術ブログ一覧
                 </h2>
-                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                     開発の学びと知見を記録しています。
                 </p>
                 <div

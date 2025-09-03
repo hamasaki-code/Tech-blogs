@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+    darkMode: "class",
     content: [
         "./app/**/*.{js,ts,jsx,tsx}",
         "./src/**/*.{js,ts,jsx,tsx,mdx,md}",
@@ -9,47 +10,50 @@ module.exports = {
             typography: (theme) => ({
                 DEFAULT: {
                     css: {
-                        fontSize: "1.1rem",
-                        lineHeight: "1.9",
-                        color: theme("colors.gray.800"),
+                        color: theme('colors.gray.800'),
+                        maxWidth: 'none',
                         h1: {
-                            fontSize: theme("fontSize.4xl")[0],
-                            fontWeight: "800",
-                            color: theme("colors.gray.900"),
-                            marginTop: "1.5em",
-                            marginBottom: "1em",
+                            color: theme('colors.gray.900'),
                         },
                         h2: {
-                            fontSize: theme("fontSize.3xl")[0],
-                            fontWeight: "700",
-                            color: theme("colors.gray.800"),
-                            marginTop: "1.5em",
-                            marginBottom: "0.9em",
+                            color: theme('colors.gray.900'),
                         },
                         h3: {
-                            fontSize: theme("fontSize.2xl")[0],
-                            fontWeight: "600",
-                            color: theme("colors.gray.700"),
-                            marginTop: "1.2em",
-                            marginBottom: "0.6em",
+                            color: theme('colors.gray.900'),
                         },
                         p: {
-                            marginTop: "1rem",
-                            marginBottom: "1rem",
-                        },
-                        ul: {
-                            paddingLeft: "1.5rem",
-                            listStyleType: "disc",
-                        },
-                        ol: {
-                            paddingLeft: "1.5rem",
-                            listStyleType: "decimal",
+                            color: theme('colors.gray.800'),
                         },
                         li: {
-                            marginTop: "0.25rem",
-                            marginBottom: "0.25rem",
+                            color: theme('colors.gray.800'),
                         },
-                    },
+                        strong: {
+                            color: theme('colors.gray.900'),
+                        },
+                    }
+                },
+                invert: {
+                    css: {
+                        color: theme('colors.gray.200'),
+                        h1: {
+                            color: theme('colors.gray.100'),
+                        },
+                        h2: {
+                            color: theme('colors.gray.100'),
+                        },
+                        h3: {
+                            color: theme('colors.gray.100'),
+                        },
+                        p: {
+                            color: theme('colors.gray.200'),
+                        },
+                        li: {
+                            color: theme('colors.gray.200'),
+                        },
+                        strong: {
+                            color: theme('colors.gray.100'),
+                        },
+                    }
                 },
             }),
         },
