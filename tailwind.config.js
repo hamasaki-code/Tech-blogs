@@ -7,53 +7,22 @@ module.exports = {
     ],
     theme: {
         extend: {
+            screens: {
+                macbook: { min: "1470px", max: "1699px" },
+                xl2: "1700px",
+            },
+
             typography: (theme) => ({
                 DEFAULT: {
                     css: {
-                        color: theme('colors.gray.800'),
-                        maxWidth: 'none',
-                        h1: {
-                            color: theme('colors.gray.900'),
-                        },
-                        h2: {
-                            color: theme('colors.gray.900'),
-                        },
-                        h3: {
-                            color: theme('colors.gray.900'),
-                        },
-                        p: {
-                            color: theme('colors.gray.800'),
-                        },
-                        li: {
-                            color: theme('colors.gray.800'),
-                        },
-                        strong: {
-                            color: theme('colors.gray.900'),
-                        },
-                    }
+                        color: theme("colors.gray.800"),
+                        maxWidth: "none",
+                    },
                 },
                 invert: {
                     css: {
-                        color: theme('colors.gray.200'),
-                        h1: {
-                            color: theme('colors.gray.100'),
-                        },
-                        h2: {
-                            color: theme('colors.gray.100'),
-                        },
-                        h3: {
-                            color: theme('colors.gray.100'),
-                        },
-                        p: {
-                            color: theme('colors.gray.200'),
-                        },
-                        li: {
-                            color: theme('colors.gray.200'),
-                        },
-                        strong: {
-                            color: theme('colors.gray.100'),
-                        },
-                    }
+                        color: theme("colors.gray.200"),
+                    },
                 },
             }),
         },
