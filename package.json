@@ -15,7 +15,7 @@
     "@tailwindcss/line-clamp": "^0.4.4",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
-    "next": "15.3.5",
+    "next": "15.3.8",
     "phosphor-react": "^1.4.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
