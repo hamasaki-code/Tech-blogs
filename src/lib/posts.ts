@@ -184,8 +184,43 @@ const getCachedPostBySlug = unstable_cache(
   },
 );
 
+async function getPostIndex(): Promise<PostIndexEntry[]> {
+  try {
+    return await getCachedPostIndex();
+  } catch {
+    return buildPostIndex();
+  }
+}
+
+async function getPostDetailBySlug(requestedSlug: string): Promise<PostDetail | null> {
+  try {
+    return await getCachedPostBySlug(requestedSlug);
+  } catch {
+    const decodedRequestedSlug = safeDecodeSlug(requestedSlug).trim();
+    const posts = await buildPostIndex();
+    const matchedPost =
+      posts.find((post) => post.slug === decodedRequestedSlug) ??
+      posts.find((post) => post.sourceSlug === decodedRequestedSlug);
+
+    if (!matchedPost) {
+      return null;
+    }
+
+    const fileContents = await fs.readFile(matchedPost.filePath, "utf8");
+    const { data, content } = matter(fileContents);
+    const frontmatter = data as Record<string, unknown>;
+
+    return {
+      slug: matchedPost.slug,
+      sourceSlug: matchedPost.sourceSlug,
+      content,
+      meta: buildMeta(frontmatter, content, matchedPost.sourceSlug),
+    };
+  }
+}
+
 export async function getAllPosts(): Promise<PostSummary[]> {
-  const posts = await getCachedPostIndex();
+  const posts = await getPostIndex();
 
   return posts.map((post) => ({
     slug: post.slug,
@@ -194,10 +229,10 @@ export async function getAllPosts(): Promise<PostSummary[]> {
 }
 
 export async function getAllPostSlugs(): Promise<string[]> {
-  const posts = await getCachedPostIndex();
+  const posts = await getPostIndex();
   return posts.map((post) => post.slug);
 }
 
 export async function getPostBySlug(slug: string): Promise<PostDetail | null> {
-  return getCachedPostBySlug(slug);
+  return getPostDetailBySlug(slug);
 }

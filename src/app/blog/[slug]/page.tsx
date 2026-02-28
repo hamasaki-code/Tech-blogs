@@ -9,10 +9,9 @@ import { remarkExtractToc } from "@/lib/remark-toc";
 import {
   getAllPostSlugs,
   getPostBySlug,
-  POSTS_REVALIDATE_SECONDS,
 } from "@/lib/posts";
 
-export const revalidate = POSTS_REVALIDATE_SECONDS;
+export const revalidate = 300;
 
 function decodeSlug(slug: string): string {
   try {
