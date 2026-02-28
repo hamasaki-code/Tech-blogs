@@ -4,14 +4,13 @@ import { useMemo, useState } from "react";
 import SearchInput from "./SearchInput";
 import PostCard from "./PostCard";
 
-/** 記事メタ情報の型 */
 export type PostMeta = {
     title: string;
     date?: string;
     tags?: string[];
+    excerpt?: string;
 };
 
-/** 記事の型 */
 export type Post = {
     slug: string;
     meta: PostMeta;
@@ -26,11 +25,18 @@ export default function SearchablePosts({ posts }: Props) {
 
     const filteredPosts = useMemo(() => {
         const q = query.toLowerCase().trim();
+        if (!q) {
+            return posts;
+        }
+
         return posts.filter((post) => {
             const titleHit = post.meta.title.toLowerCase().includes(q);
             const tags = post.meta.tags ?? [];
             const tagHit = tags.some((tag) => tag.toLowerCase().includes(q));
-            return titleHit || tagHit;
+            const excerpt = post.meta.excerpt ?? "";
+            const excerptHit = excerpt.toLowerCase().includes(q);
+
+            return titleHit || tagHit || excerptHit;
         });
     }, [posts, query]);
 
@@ -41,18 +47,16 @@ export default function SearchablePosts({ posts }: Props) {
             min-h-[60vh] flex flex-col
             text-gray-900 dark:text-gray-100"
         >
-            {/* 🔍 検索フォーム */}
             <div className="mb-8 sm:mb-10">
-                <SearchInput onSearch={(v: string) => setQuery(v)} />
+                <SearchInput value={query} onSearch={(v: string) => setQuery(v)} />
             </div>
 
-            {/* セクションヘッダー */}
             <div className="text-center mb-10 sm:mb-12">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">
-                    技術ブログ一覧
+                    最新ブログ一覧
                 </h2>
                 <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                    開発の学びと知見を記録しています。
+                    技術系の記事を検索して閲覧できます。
                 </p>
                 <div
                     className="mt-4 w-12 sm:w-16 h-1 mx-auto
@@ -60,7 +64,6 @@ export default function SearchablePosts({ posts }: Props) {
                 />
             </div>
 
-            {/* カードリスト */}
             <div className="grid gap-8 sm:gap-10 sm:grid-cols-2 lg:grid-cols-3 flex-1">
                 {filteredPosts.length > 0 ? (
                     filteredPosts.map((post) => (
@@ -86,11 +89,18 @@ export default function SearchablePosts({ posts }: Props) {
                             rounded-lg p-6 sm:p-10 shadow-sm"
                         >
                             <h3 className="text-base sm:text-lg font-semibold text-gray-700 dark:text-gray-200">
-                                記事が見つかりませんでした
+                                条件に一致する記事が見つかりませんでした
                             </h3>
                             <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                                検索条件を変更して、もう一度お試しください。
+                                「{query}」に一致する記事がありません。キーワードを短くするか、別の語句で再検索してください。
                             </p>
+                            <button
+                                type="button"
+                                onClick={() => setQuery("")}
+                                className="mt-4 inline-flex items-center justify-center rounded-full border border-purple-300 px-4 py-2 text-sm font-semibold text-purple-700 transition hover:bg-purple-50 dark:border-purple-700 dark:text-purple-300 dark:hover:bg-purple-900/30"
+                            >
+                                検索をクリア
+                            </button>
                         </div>
                     </div>
                 )}

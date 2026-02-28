@@ -2,7 +2,12 @@
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
-export default function SearchInput({ onSearch }: { onSearch: (query: string) => void }) {
+type Props = {
+    value: string;
+    onSearch: (query: string) => void;
+};
+
+export default function SearchInput({ value, onSearch }: Props) {
     return (
         <div className="relative w-full max-w-2xl mx-auto">
             {/* 🔍 アイコン */}
@@ -14,8 +19,9 @@ export default function SearchInput({ onSearch }: { onSearch: (query: string) =>
             {/* 入力欄 */}
             <input
                 type="text"
+                value={value}
                 onChange={(e) => onSearch(e.target.value)}
-                placeholder="Search articles by title or tag..."
+                placeholder="Search articles by title, tag, or excerpt..."
                 className="w-full pl-10 pr-4 py-3 rounded-full
                     bg-white dark:bg-gray-800
                     border border-gray-300 dark:border-gray-600

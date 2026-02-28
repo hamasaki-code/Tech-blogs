@@ -1,8 +1,10 @@
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts, POSTS_REVALIDATE_SECONDS } from "@/lib/posts";
 import SearchablePosts from "@/components/SearchablePosts";
 
+export const revalidate = POSTS_REVALIDATE_SECONDS;
+
 export default async function HomePage() {
-  const posts = getAllPosts();
+  const posts = await getAllPosts();
 
   return (
     <>
