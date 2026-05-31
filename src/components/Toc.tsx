@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type TocItem = {
     depth: number;
@@ -8,11 +8,17 @@ type TocItem = {
     id: string;
 };
 
-export default function Toc({ items }: { items: TocItem[] }) {
+type TocProps = {
+    items: TocItem[];
+    className?: string;
+    showTitle?: boolean;
+};
+
+export default function Toc({ items, className = "", showTitle = true }: TocProps) {
     const [activeId, setActiveId] = useState<string | null>(null);
     const isManualScroll = useRef(false);
 
-    const tocItems = items.filter((item) => item.depth <= 2);
+    const tocItems = useMemo(() => items.filter((item) => item.depth <= 2), [items]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -66,11 +72,18 @@ export default function Toc({ items }: { items: TocItem[] }) {
         }
     };
 
+    if (tocItems.length === 0) return null;
+
     return (
-        <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border border-gray-300 dark:border-gray-700 p-5 rounded-md shadow text-sm">
-            <h2 className="font-bold mb-3 text-gray-800 dark:text-gray-200 tracking-wide">
-                目次
-            </h2>
+        <nav
+            className={`bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border border-gray-300 dark:border-gray-700 p-5 rounded-md shadow text-sm ${className}`}
+            aria-label="記事の目次"
+        >
+            {showTitle && (
+                <h2 className="font-bold mb-3 text-gray-800 dark:text-gray-200 tracking-wide">
+                    目次
+                </h2>
+            )}
             <ul className="pl-4 space-y-3">
                 {tocItems.map((item, idx) => (
                     <li key={item.id} className="relative pl-6">
@@ -114,6 +127,6 @@ export default function Toc({ items }: { items: TocItem[] }) {
                     </li>
                 ))}
             </ul>
-        </div>
+        </nav>
     );
 }
