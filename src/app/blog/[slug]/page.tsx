@@ -69,20 +69,11 @@ export default async function BlogPost(
   return (
     <Layout>
       <div className="w-full bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 dark:from-gray-900 dark:via-gray-950 dark:to-black py-8 sm:py-12">
-        <div className="max-w-[1800px] mx-auto flex relative px-6">
+        <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-8 px-4 sm:px-6 lg:grid-cols-[minmax(0,56rem)_16rem] xl:grid-cols-[minmax(0,64rem)_18rem] lg:items-start lg:justify-center">
+
+          {/* 記事本体 */}
           <div
-            className="
-    w-full
-    max-w-6xl
-    xl:max-w-4xl
-    lg:max-w-4xl
-    md:max-w-3xl
-    sm:max-w-full
-    bg-white dark:bg-gray-800
-    p-4 sm:p-6 md:p-10 my-6 sm:my-12
-    rounded-xl shadow-xl relative
-    mx-auto
-  "
+            className="w-full bg-white dark:bg-gray-800 p-4 sm:p-6 md:p-10 my-6 sm:my-12 rounded-xl shadow-xl"
           >
             <section className="w-full bg-gradient-to-r from-pink-200 via-purple-200 to-blue-200 dark:from-gray-700 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-gray-100 py-8 sm:py-12 text-center shadow-sm mb-6 rounded-lg">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-2 text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 dark:from-pink-400 dark:via-purple-400 dark:to-blue-400">
@@ -110,12 +101,16 @@ export default async function BlogPost(
             )}
 
             {toc.length > 0 && (
-              <div className="lg:hidden mb-6">
-                <details className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md p-4">
+              <div className="lg:hidden sticky top-20 z-30 mb-6">
+                <details className="group bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-md p-4 shadow-md">
                   <summary className="cursor-pointer font-semibold text-gray-700 dark:text-gray-200">
                     Table of Contents
                   </summary>
-                  <Toc items={toc} />
+                  <Toc
+                    items={toc}
+                    showTitle={false}
+                    className="mt-4 max-h-[60vh] overflow-y-auto border-0 bg-transparent p-0 shadow-none dark:bg-transparent"
+                  />
                 </details>
               </div>
             )}
@@ -132,18 +127,9 @@ export default async function BlogPost(
 
           {toc.length > 0 && (
             <aside
-              className="
-        hidden lg:block w-64 flex-shrink-0
-        lg:ml-8
-        2xl:absolute 2xl:right-[clamp(1rem,3vw,5rem)] 2xl:top-40
-      "
+              className="hidden lg:block sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto py-6"
             >
-              <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg sticky top-40 2xl:static">
-                <h2 className="text-lg font-bold mb-4 text-gray-900 dark:text-gray-100">
-                  Table of Contents
-                </h2>
-                <Toc items={toc} />
-              </div>
+              <Toc items={toc} />
             </aside>
           )}
         </div>
