@@ -41,36 +41,28 @@ export default function SearchablePosts({ posts }: Props) {
     }, [posts, query]);
 
     return (
-        <main
-            className="max-w-3xl sm:max-w-5xl lg:max-w-7xl mx-auto
-            px-4 sm:px-6 lg:px-8 pt-10 md:pt-12 pb-16 md:pb-20
-            min-h-[60vh] flex flex-col
-            text-gray-900 dark:text-gray-100"
-        >
+        <main className="mx-auto flex min-h-[60vh] max-w-3xl flex-col px-4 pt-10 pb-16 text-slate-950 dark:text-slate-100 sm:max-w-5xl sm:px-6 md:pt-12 md:pb-20 lg:max-w-7xl lg:px-8">
             <div className="mb-8 sm:mb-10">
                 <SearchInput value={query} onSearch={(v: string) => setQuery(v)} />
             </div>
 
-            <div className="text-center mb-10 sm:mb-12">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">
-                    最新ブログ一覧
-                </h2>
-                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                    技術系の記事を検索して閲覧できます。
+            <div className="mb-10 sm:mb-12">
+                <p className="font-mono text-xs font-semibold uppercase tracking-[0.22em] text-violet-700 dark:text-violet-300">
+                    Articles
                 </p>
-                <div
-                    className="mt-4 w-12 sm:w-16 h-1 mx-auto
-                    bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-full"
-                />
+                <h2 className="mt-3 text-2xl font-extrabold text-slate-950 dark:text-white sm:text-3xl md:text-4xl">
+                    最新記事
+                </h2>
+                <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-400">
+                    タイトル、タグ、概要から技術メモを検索できます。
+                </p>
+                <div className="mt-5 h-px w-full bg-gradient-to-r from-violet-500 via-slate-300 to-transparent dark:via-slate-700" />
             </div>
 
-            <div className="grid gap-8 sm:gap-10 sm:grid-cols-2 lg:grid-cols-3 flex-1">
+            <div className="grid flex-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {filteredPosts.length > 0 ? (
                     filteredPosts.map((post) => (
-                        <div
-                            key={post.slug}
-                            className="h-full flex flex-col transition-transform duration-300 ease-out hover:scale-105"
-                        >
+                        <div key={post.slug} className="flex h-full flex-col">
                             <PostCard
                                 slug={post.slug}
                                 title={post.meta.title}
@@ -80,24 +72,18 @@ export default function SearchablePosts({ posts }: Props) {
                         </div>
                     ))
                 ) : (
-                    <div className="flex items-center justify-center col-span-full py-12 sm:py-20">
-                        <div
-                            className="text-center max-w-md
-                            bg-gradient-to-br from-gray-50 to-white
-                            dark:from-gray-800 dark:to-gray-900
-                            border border-gray-200 dark:border-gray-700
-                            rounded-lg p-6 sm:p-10 shadow-sm"
-                        >
-                            <h3 className="text-base sm:text-lg font-semibold text-gray-700 dark:text-gray-200">
+                    <div className="col-span-full flex items-center justify-center py-12 sm:py-20">
+                        <div className="max-w-md border border-slate-200 bg-white p-6 text-center shadow-[0_16px_48px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-900/70 dark:shadow-[0_16px_48px_rgba(2,6,23,0.26)] sm:p-10">
+                            <h3 className="text-base font-semibold text-slate-800 dark:text-slate-200 sm:text-lg">
                                 条件に一致する記事が見つかりませんでした
                             </h3>
-                            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                                「{query}」に一致する記事がありません。キーワードを短くするか、別の語句で再検索してください。
+                            <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-400">
+                                「{query}」に一致する記事はありません。キーワードを短くするか、別の言葉で検索してください。
                             </p>
                             <button
                                 type="button"
                                 onClick={() => setQuery("")}
-                                className="mt-4 inline-flex items-center justify-center rounded-full border border-purple-300 px-4 py-2 text-sm font-semibold text-purple-700 transition hover:bg-purple-50 dark:border-purple-700 dark:text-purple-300 dark:hover:bg-purple-900/30"
+                                className="mt-4 inline-flex items-center justify-center border border-violet-300 px-4 py-2 text-sm font-semibold text-violet-700 transition hover:bg-violet-50 dark:border-violet-400/50 dark:text-violet-200 dark:hover:bg-violet-400/10"
                             >
                                 検索をクリア
                             </button>

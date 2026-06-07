@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Hamayan.dev",
-  description: "技術・学び・発見を記録する、Hamayanの開発記事。",
+  description: "技術の学び、実装メモ、開発で得た知見を記録する Hamayan の技術ブログ。",
 };
 
 export default function RootLayout({
@@ -22,10 +22,25 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const themeScript = `
+    (() => {
+      try {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = stored === 'light' || stored === 'dark' ? stored : prefersDark ? 'dark' : 'light';
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+        document.documentElement.style.colorScheme = theme;
+      } catch (_) {}
+    })();
+  `;
+
   return (
-    <html lang="ja" className="dark">
+    <html lang="ja" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 dark:bg-gray-900`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-slate-50 text-slate-950 antialiased dark:bg-slate-950 dark:text-slate-100`}
       >
         {children}
       </body>
