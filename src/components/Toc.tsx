@@ -76,24 +76,21 @@ export default function Toc({ items, className = "", showTitle = true }: TocProp
 
     return (
         <nav
-            className={`bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border border-gray-300 dark:border-gray-700 p-5 rounded-md shadow text-sm ${className}`}
+            className={`border border-slate-200 bg-white/90 p-5 text-sm shadow-[0_16px_48px_rgba(15,23,42,0.08)] backdrop-blur dark:border-slate-800 dark:bg-slate-950/85 dark:shadow-[0_16px_48px_rgba(2,6,23,0.28)] ${className}`}
             aria-label="記事の目次"
         >
             {showTitle && (
-                <h2 className="font-bold mb-3 text-gray-800 dark:text-gray-200 tracking-wide">
-                    目次
+                <h2 className="mb-3 font-mono text-xs font-bold uppercase tracking-[0.2em] text-violet-700 dark:text-violet-300">
+                    Contents
                 </h2>
             )}
-            <ul className="pl-4 space-y-3">
+            <ul className="space-y-3 pl-4">
                 {tocItems.map((item, idx) => (
                     <li key={item.id} className="relative pl-6">
-                        {/* ノード */}
                         <span
-                            className={`absolute left-0 top-2 transform -translate-x-1/2 -translate-y-1/2 
-                                z-10 transition-colors duration-300
-                                ${activeId === item.id
-                                    ? "bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600"
-                                    : "bg-gray-400 dark:bg-gray-600"
+                            className={`absolute left-0 top-2 z-10 -translate-x-1/2 -translate-y-1/2 transition-colors duration-300 ${activeId === item.id
+                                ? "bg-violet-500 dark:bg-violet-400"
+                                : "bg-slate-300 dark:bg-slate-600"
                                 }`}
                             style={{
                                 width: item.depth === 1 ? "12px" : "9px",
@@ -101,24 +98,21 @@ export default function Toc({ items, className = "", showTitle = true }: TocProp
                                 borderRadius: "3px",
                                 boxShadow:
                                     activeId === item.id
-                                        ? "0 0 6px rgba(99,102,241,0.8)"
+                                        ? "0 0 10px rgba(167,139,250,0.85)"
                                         : "none",
                             }}
                         />
 
-                        {/* 線（最後の要素以外につける） */}
                         {idx < tocItems.length - 1 && (
-                            <span className="absolute left-0 top-2 bottom-[-16px] w-px bg-gray-400 dark:bg-gray-600"></span>
+                            <span className="absolute left-0 top-2 bottom-[-16px] w-px bg-slate-300 dark:bg-slate-700" />
                         )}
 
-                        {/* リンク */}
                         <a
                             href={`#${encodeURIComponent(item.id)}`}
                             onClick={(e) => handleClick(e, item.id)}
-                            className={`block transition-colors duration-300 leading-snug tracking-wide
-                                ${activeId === item.id
-                                    ? "text-indigo-600 font-semibold underline underline-offset-4"
-                                    : "text-gray-700 dark:text-gray-400 hover:text-indigo-500"
+                            className={`block leading-snug tracking-wide transition-colors duration-300 ${activeId === item.id
+                                ? "font-semibold text-violet-700 underline underline-offset-4 dark:text-violet-200"
+                                : "text-slate-600 hover:text-violet-700 dark:text-slate-400 dark:hover:text-violet-200"
                                 }`}
                             style={{ marginLeft: (item.depth - 1) * 12 }}
                         >
