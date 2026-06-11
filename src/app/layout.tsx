@@ -15,6 +15,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Hamayan.dev",
   description: "技術の学び、実装メモ、開発で得た知見を記録する Hamayan の技術ブログ。",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
