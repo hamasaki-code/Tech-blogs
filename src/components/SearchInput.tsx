@@ -2,27 +2,22 @@
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
-export default function SearchInput({ onSearch }: { onSearch: (query: string) => void }) {
-    return (
-        <div className="relative w-full max-w-2xl mx-auto">
-            {/* 🔍 アイコン */}
-            <MagnifyingGlassIcon
-                className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5
-                text-gray-500 dark:text-gray-400 pointer-events-none"
-            />
+type Props = {
+    value: string;
+    onSearch: (query: string) => void;
+};
 
-            {/* 入力欄 */}
+export default function SearchInput({ value, onSearch }: Props) {
+    return (
+        <div className="relative mx-auto w-full max-w-2xl">
+            <MagnifyingGlassIcon className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400 dark:text-slate-500" />
+
             <input
                 type="text"
+                value={value}
                 onChange={(e) => onSearch(e.target.value)}
-                placeholder="Search articles by title or tag..."
-                className="w-full pl-10 pr-4 py-3 rounded-full
-                    bg-white dark:bg-gray-800
-                    border border-gray-300 dark:border-gray-600
-                    text-gray-900 dark:text-gray-100
-                    placeholder-gray-400 dark:placeholder-gray-500
-                    focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500
-                    transition"
+                placeholder="Search articles by title, tag, or excerpt..."
+                className="w-full border border-slate-300 bg-white py-3 pl-10 pr-4 text-slate-950 placeholder-slate-400 shadow-sm transition focus:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/20 dark:border-slate-700 dark:bg-slate-950/80 dark:text-slate-100 dark:placeholder-slate-500 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] dark:focus:border-violet-400 dark:focus:ring-violet-500/30"
             />
         </div>
     );

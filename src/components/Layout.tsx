@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import ThemeToggle from "./ThemeToggle";
 
 type LayoutProps = {
     children: React.ReactNode;
@@ -29,48 +30,43 @@ export default function Layout({ children }: LayoutProps) {
     }, []);
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-950">
-            {/* ナビゲーション */}
+        <div className="min-h-screen bg-slate-50 text-slate-950 dark:bg-slate-950 dark:text-slate-100">
             <nav
-                className={`w-full bg-white dark:bg-gray-800 shadow-md fixed top-0 left-0 z-50 transition-transform duration-300 ${showHeader ? "translate-y-0" : "-translate-y-full"
+                className={`fixed left-0 top-0 z-50 w-full border-b border-slate-200/80 bg-white/90 shadow-[0_12px_40px_rgba(15,23,42,0.08)] backdrop-blur transition-transform duration-300 dark:border-slate-800/80 dark:bg-slate-950/90 dark:shadow-[0_12px_40px_rgba(2,6,23,0.35)] ${showHeader ? "translate-y-0" : "-translate-y-full"
                     }`}
             >
-                <div className="relative max-w-6xl mx-auto flex items-center h-16">
-                    {/* 左：戻るボタン */}
-                    <div className="flex-shrink-0 ml-6">
+                <div className="relative mx-auto flex h-16 max-w-6xl items-center px-4 sm:px-6">
+                    <div className="flex-shrink-0">
                         <Link
                             href="/"
-                            className="flex items-center justify-center w-9 h-9 rounded-full
-                            bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500
-                            text-white shadow hover:opacity-90 transition"
+                            className="flex h-9 w-9 items-center justify-center border border-violet-300 bg-violet-50 text-violet-700 shadow-sm transition hover:border-violet-400 hover:bg-violet-100 dark:border-violet-400/40 dark:bg-violet-400/10 dark:text-violet-200 dark:shadow-[0_0_24px_rgba(124,58,237,0.18)] dark:hover:border-violet-300 dark:hover:bg-violet-400/20"
                             title="Back to Home"
                             aria-label="Back to Home"
                         >
-                            <FontAwesomeIcon icon={faCircleLeft} className="w-5 h-5" />
+                            <FontAwesomeIcon icon={faCircleLeft} className="h-5 w-5" />
                         </Link>
                     </div>
 
-                    {/* 中央：ロゴ */}
                     <div className="absolute left-1/2 -translate-x-1/2">
                         <Link
                             href="/"
-                            className="text-xl font-bold text-transparent bg-clip-text
-                            bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600"
+                            className="font-mono text-sm font-bold uppercase tracking-[0.22em] text-slate-900 transition hover:text-violet-700 dark:text-slate-100 dark:hover:text-violet-200 sm:text-base"
                             aria-label="Hamayan.dev home"
                         >
                             Hamayan.dev
                         </Link>
                     </div>
+                    <div className="ml-auto">
+                        <ThemeToggle />
+                    </div>
                 </div>
             </nav>
 
-            {/* メイン */}
             <main className="pt-20">{children}</main>
 
-            {/* フッター */}
-            <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 text-center py-6 mt-12">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                    © {new Date().getFullYear()} Hamayan.dev — All rights reserved.
+            <footer className="mt-12 border-t border-slate-200 bg-white py-6 text-center dark:border-slate-800 dark:bg-slate-950">
+                <p className="font-mono text-xs text-slate-500 dark:text-slate-500">
+                    © {new Date().getFullYear()} Hamayan.dev / All rights reserved.
                 </p>
             </footer>
         </div>
