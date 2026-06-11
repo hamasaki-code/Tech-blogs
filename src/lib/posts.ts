@@ -1,15 +1,10 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
-import { unstable_cache } from "next/cache";
 
 const postsDirectory = path.join(process.cwd(), "src/content");
 const markdownExtension = /\.md$/i;
 const excerptMaxLength = 120;
-
-// ISR/cached index refresh interval: 5 minutes.
-export const POSTS_REVALIDATE_SECONDS = 300;
-export const POSTS_CACHE_TAG = "posts";
 
 export type PostMeta = {
   title: string;
@@ -145,82 +140,31 @@ function safeDecodeSlug(slug: string): string {
   }
 }
 
-const getCachedPostIndex = unstable_cache(
-  async () => buildPostIndex(),
-  ["posts:index:v1"],
-  {
-    revalidate: POSTS_REVALIDATE_SECONDS,
-    tags: [POSTS_CACHE_TAG],
-  },
-);
-
-const getCachedPostBySlug = unstable_cache(
-  async (requestedSlug: string) => {
-    const decodedRequestedSlug = safeDecodeSlug(requestedSlug).trim();
-    const posts = await getCachedPostIndex();
-    const matchedPost =
-      posts.find((post) => post.slug === decodedRequestedSlug) ??
-      posts.find((post) => post.sourceSlug === decodedRequestedSlug);
-
-    if (!matchedPost) {
-      return null;
-    }
-
-    const fileContents = await fs.readFile(matchedPost.filePath, "utf8");
-    const { data, content } = matter(fileContents);
-    const frontmatter = data as Record<string, unknown>;
-
-    return {
-      slug: matchedPost.slug,
-      sourceSlug: matchedPost.sourceSlug,
-      content,
-      meta: buildMeta(frontmatter, content, matchedPost.sourceSlug),
-    } satisfies PostDetail;
-  },
-  ["posts:detail:v1"],
-  {
-    revalidate: POSTS_REVALIDATE_SECONDS,
-    tags: [POSTS_CACHE_TAG],
-  },
-);
-
-async function getPostIndex(): Promise<PostIndexEntry[]> {
-  try {
-    return await getCachedPostIndex();
-  } catch {
-    return buildPostIndex();
-  }
-}
-
 async function getPostDetailBySlug(requestedSlug: string): Promise<PostDetail | null> {
-  try {
-    return await getCachedPostBySlug(requestedSlug);
-  } catch {
-    const decodedRequestedSlug = safeDecodeSlug(requestedSlug).trim();
-    const posts = await buildPostIndex();
-    const matchedPost =
-      posts.find((post) => post.slug === decodedRequestedSlug) ??
-      posts.find((post) => post.sourceSlug === decodedRequestedSlug);
+  const decodedRequestedSlug = safeDecodeSlug(requestedSlug).trim();
+  const posts = await buildPostIndex();
+  const matchedPost =
+    posts.find((post) => post.slug === decodedRequestedSlug) ??
+    posts.find((post) => post.sourceSlug === decodedRequestedSlug);
 
-    if (!matchedPost) {
-      return null;
-    }
-
-    const fileContents = await fs.readFile(matchedPost.filePath, "utf8");
-    const { data, content } = matter(fileContents);
-    const frontmatter = data as Record<string, unknown>;
-
-    return {
-      slug: matchedPost.slug,
-      sourceSlug: matchedPost.sourceSlug,
-      content,
-      meta: buildMeta(frontmatter, content, matchedPost.sourceSlug),
-    };
+  if (!matchedPost) {
+    return null;
   }
+
+  const fileContents = await fs.readFile(matchedPost.filePath, "utf8");
+  const { data, content } = matter(fileContents);
+  const frontmatter = data as Record<string, unknown>;
+
+  return {
+    slug: matchedPost.slug,
+    sourceSlug: matchedPost.sourceSlug,
+    content,
+    meta: buildMeta(frontmatter, content, matchedPost.sourceSlug),
+  };
 }
 
 export async function getAllPosts(): Promise<PostSummary[]> {
-  const posts = await getPostIndex();
+  const posts = await buildPostIndex();
 
   return posts.map((post) => ({
     slug: post.slug,
@@ -229,7 +173,7 @@ export async function getAllPosts(): Promise<PostSummary[]> {
 }
 
 export async function getAllPostSlugs(): Promise<string[]> {
-  const posts = await getPostIndex();
+  const posts = await buildPostIndex();
   return posts.map((post) => post.slug);
 }
 
