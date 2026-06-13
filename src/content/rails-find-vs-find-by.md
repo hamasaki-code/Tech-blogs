@@ -131,26 +131,28 @@ end
 次の図を見ると、`find` と `find_by` の一番大きな違いがわかりやすくなります。
 違いは「見つからなかったときに、例外になるか `nil` になるか」です。
 
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:24px 0;">
-  <div style="border:1px solid #cbd5e1;background:#f8fafc;padding:16px;">
-    <div style="font-weight:700;font-size:18px;margin-bottom:12px;">find(id)</div>
-    <div style="border:1px solid #94a3b8;background:white;padding:10px;text-align:center;">主キー id で検索</div>
-    <div style="text-align:center;margin:8px 0;">↓</div>
-    <div style="display:grid;gap:8px;">
-      <div style="border-left:4px solid #16a34a;background:white;padding:10px;">見つかった → モデルを返す</div>
-      <div style="border-left:4px solid #dc2626;background:white;padding:10px;">見つからない → <code>ActiveRecord::RecordNotFound</code></div>
-    </div>
-  </div>
-  <div style="border:1px solid #cbd5e1;background:#f8fafc;padding:16px;">
-    <div style="font-weight:700;font-size:18px;margin-bottom:12px;">find_by(条件)</div>
-    <div style="border:1px solid #94a3b8;background:white;padding:10px;text-align:center;">指定した条件で検索</div>
-    <div style="text-align:center;margin:8px 0;">↓</div>
-    <div style="display:grid;gap:8px;">
-      <div style="border-left:4px solid #16a34a;background:white;padding:10px;">見つかった → モデルを返す</div>
-      <div style="border-left:4px solid #2563eb;background:white;padding:10px;">見つからない → <code>nil</code></div>
-    </div>
-  </div>
-</div>
+```mermaid
+flowchart LR
+  subgraph findFlow["find(id)"]
+    findStart["主キー id で検索"]
+    findFound{"見つかった？"}
+    findReturn["モデルを返す"]
+    findError["ActiveRecord::RecordNotFound"]
+    findStart --> findFound
+    findFound -- "Yes" --> findReturn
+    findFound -- "No" --> findError
+  end
+
+  subgraph findByFlow["find_by(条件)"]
+    findByStart["指定した条件で検索"]
+    findByFound{"見つかった？"}
+    findByReturn["モデルを返す"]
+    findByNil["nil"]
+    findByStart --> findByFound
+    findByFound -- "Yes" --> findByReturn
+    findByFound -- "No" --> findByNil
+  end
+```
 
 この「例外になるか、`nil` になるか」は、実装時の分岐やエラーハンドリングに直結します。
 

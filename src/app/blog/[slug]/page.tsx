@@ -3,8 +3,13 @@ import html from "remark-html";
 import remarkGfm from "remark-gfm";
 import { notFound, permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
+import CodeBlockEnhancer from "@/components/CodeBlockEnhancer";
 import Layout from "@/components/Layout";
+import MermaidRenderer from "@/components/MermaidRenderer";
 import Toc from "@/components/Toc";
+import { remarkCallouts } from "@/lib/remark-callouts";
+import { remarkCodeBlocks } from "@/lib/remark-code-blocks";
+import { remarkShikiCode } from "@/lib/remark-shiki-code";
 import { remarkExtractToc } from "@/lib/remark-toc";
 import {
   getAllPostSlugs,
@@ -60,6 +65,9 @@ export default async function BlogPost(
   const toc: { depth: number; text: string; id: string }[] = [];
   const processedContent = await remark()
     .use(remarkGfm)
+    .use(remarkCallouts)
+    .use(remarkCodeBlocks)
+    .use(remarkShikiCode)
     .use(remarkExtractToc, { target: toc })
     .use(html, { sanitize: false })
     .process(post.content);
@@ -102,7 +110,7 @@ export default async function BlogPost(
             </section>
 
             {toc.length > 0 && (
-              <div className="sticky top-20 z-30 mb-8 lg:hidden">
+              <div className="mb-8 lg:hidden">
                 <details className="group border border-slate-200 bg-white/95 p-4 shadow-[0_16px_48px_rgba(15,23,42,0.08)] backdrop-blur dark:border-slate-800 dark:bg-slate-950/95 dark:shadow-[0_16px_48px_rgba(2,6,23,0.28)]">
                   <summary className="cursor-pointer font-mono text-xs font-semibold uppercase tracking-[0.18em] text-violet-700 dark:text-violet-300">
                     Contents
@@ -120,6 +128,8 @@ export default async function BlogPost(
               className="markdown-body prose prose-gray max-w-none prose-sm sm:prose-base md:prose-lg lg:prose-xl"
               dangerouslySetInnerHTML={{ __html: contentHtml }}
             />
+            <CodeBlockEnhancer />
+            <MermaidRenderer />
           </div>
 
           {toc.length > 0 && (
